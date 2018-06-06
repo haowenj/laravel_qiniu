@@ -64,6 +64,11 @@ class QiuniuController extends Controller
         }
     }
 
+    /**
+     * 七牛云回调
+     * @param Request $request
+     * @return string
+     */
     public function qiniuCallback(Request $request)
     {
         $filename = $request->input('fkey');
