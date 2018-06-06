@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Storage;
 use Qiniu\Auth;
 use Qiniu\Storage\UploadManager;
@@ -18,12 +19,21 @@ class QiuniuController extends Controller
         $accessKey = env('QINIU_ACCESSKEY');
         $secretKey = env('QINIU_SECRETKEY');
         $bucket = env('QINIU_BUCKET');
+        $policy = array(
+            'callbackUrl' => env('APP_URL') . '/qiniuCallback',
+            'callbackBody' => 'fkey=$(key)'
+        );
         $auth = new Auth($accessKey, $secretKey);
-        $token = $auth->uploadToken($bucket);
+        $token = $auth->uploadToken($bucket, '', '', $policy);
 
         return $token;
     }
 
+    /**
+     * 上传图片
+     * @param Request $request
+     * @return mixed
+     */
     public function uploadFile(Request $request)
     {
         $file = $request->file('pic');
@@ -51,5 +61,10 @@ class QiuniuController extends Controller
                 return $ret;
             }
         }
+    }
+
+    public function qiniuCallback(Request $request)
+    {
+        Log::info(json_encode($request->all()));
     }
 }

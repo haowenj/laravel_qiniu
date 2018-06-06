@@ -18,3 +18,5 @@ Route::get('/', function () {
 Route::get('/getToken', 'QiuniuController@getToken');
 
 Route::post('/uploadFile', 'QiuniuController@uploadFile');
+
+Route::post('/qiniuCallback', 'QiuniuController@qiniuCallback');
