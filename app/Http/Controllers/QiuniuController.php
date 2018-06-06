@@ -25,7 +25,6 @@ class QiuniuController extends Controller
         );
         $auth = new Auth($accessKey, $secretKey);
         $token = $auth->uploadToken($bucket, '', '', $policy);
-        dd($token);
         return $token;
     }
 
