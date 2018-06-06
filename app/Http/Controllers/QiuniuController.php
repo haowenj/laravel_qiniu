@@ -67,7 +67,7 @@ class QiuniuController extends Controller
     public function qiniuCallback(Request $request)
     {
         $filename = $request->input('fkey');
-        Image::create(compact('filename'));
+        Image::create(['name' => $filename]);
         $url = env('QINIU_IMGURL') . $filename;
         return $url;
     }
