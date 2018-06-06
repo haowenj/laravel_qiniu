@@ -14,3 +14,7 @@
 Route::get('/', function () {
     return view('welcome');
 });
+
+Route::get('/getToken', 'QiuniuController@getToken');
+
+Route::post('/uploadFile', 'QiuniuController@uploadFile');
